@@ -1,20 +1,76 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header >
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Upload Documentos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+  <ion-progress-bar color="secondary" [value]= "getProgress()" type="determinate"></ion-progress-bar>
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <ion-list *ngIf="loaded">
+        <ion-item > 
+          <ion-label>Certificado</ion-label>&nbsp;
+          <ion-button fill="outline" download [href]="url" target="_blank">
+            <ion-icon name="eye"></ion-icon>
+          </ion-button>
+          <ion-button fill="outline">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>Estudios</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-card>
+        <ion-card-header>
+          <h4>Subir Certificado: <span>{{progress}} %</span></h4>
+        </ion-card-header>
+        <ion-card-content>
+          <div id=progress>
+              <ion-progress-bar color="secondary" [value]= "getProgress()" type="determinate"></ion-progress-bar>
+          </div>
+          <ion-button (click)="onClick()">
+            <ion-icon name="cloud-upload"></ion-icon>
+            &nbsp; Certificado
+          </ion-button>
+          <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="onClick()">
+              <ion-icon name="cloud-upload"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-card-content>
+      <input type="file" #fileUpload id="fileUpload"  name="fileUpload" multiple="false" accept="image/*, .pdf" style="display:none;" />
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <h4>Subir Estudios</h4>
+        </ion-card-header>
+        <ion-card-content>
+          
+            <ion-progress-bar color="secondary" type="indeterminate"></ion-progress-bar>
+
+          <ion-button (click)="onClick()">
+            <ion-icon name="cloud-upload"></ion-icon>
+            &nbsp;Estudios
+          </ion-button>
+          <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="onClick()">
+              <ion-icon name="cloud-upload"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-card-content>
+      </ion-card>
   </div>
 </ion-content>

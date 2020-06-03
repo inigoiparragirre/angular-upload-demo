@@ -1,11 +1,24 @@
 #container {
   text-align: center;
-
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   left: 0;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+#progress {
+  display: flex;
+  width: 240px;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 #container strong {
@@ -25,3 +38,28 @@
 #container a {
   text-decoration: none;
 }
+
+#container > ion-card {
+  max-width: 400px;
+  height: 240px;
+  width: 400px;
+  margin: 20px;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+ion-progress-bar {
+
+}
+
+ion-icon {
+  margin: 5px;
+}
+
