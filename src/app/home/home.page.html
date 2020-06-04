@@ -11,44 +11,60 @@
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Upload Documentos</ion-title>
+    <ion-title>Documentacion Aportada</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-progress-bar color="secondary" [value]= "getProgress()" type="determinate"></ion-progress-bar>
-  <div id="container">
-      <ion-list *ngIf="loaded">
-        <ion-item > 
-          <ion-label>Certificado</ion-label>&nbsp;
-          <ion-button fill="outline" download [href]="url" target="_blank">
-            <ion-icon name="eye"></ion-icon>
-          </ion-button>
-          <ion-button fill="outline">
-            <ion-icon name="shield-checkmark-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>Estudios</ion-label>
-        </ion-item>
+<ion-content [fullscreen]="true"> 
+  <ion-progress-bar color="secondary" [value]= "getProgressCert()" type="determinate"></ion-progress-bar>
+  <div id="container" slot="fixed">
+    <ion-list>
+      <ion-item *ngIf="loadedCert"> 
+        <ion-label>Certificado: {{nameCert}}</ion-label>&nbsp;
+        <ion-button fill="outline" (click)="downloadCert()">
+          <ion-icon name="cloud-download-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="outline">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="removeCert()">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-icon color="success" name="shield-checkmark-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="!loadedCert"> 
+        <ion-label>Certificado</ion-label>
+        &nbsp;
+          <ion-icon color="danger" name="alert-circle-outline"></ion-icon>
+      </ion-item>
+      <ion-progress-bar [value]="progressDownCert" color="tertiary"></ion-progress-bar>
+      <ion-item>
+        <ion-label>Estudios</ion-label>
+        <ion-icon color="danger" name="alert-circle-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+      <ion-list>
       </ion-list>
+
       <ion-card>
         <ion-card-header>
-          <h4>Subir Certificado: <span>{{progress}} %</span></h4>
+          <h4>Subir Certificado: <span>{{progressCert}} %</span></h4>
         </ion-card-header>
         <ion-card-content>
-          <div id=progress>
-              <ion-progress-bar color="secondary" [value]= "getProgress()" type="determinate"></ion-progress-bar>
-          </div>
-          <ion-button (click)="onClick()">
+          <ion-icon *ngIf="loadedCert" class="card-icon" color="success" name="shield-checkmark-outline"></ion-icon>
+          <!-- <div id=progress>
+              <ion-progress-bar color="secondary" [value]= "getProgressCert()" type="determinate"></ion-progress-bar>
+          </div> -->
+          <ion-button (click)="onClickCert()">
             <ion-icon name="cloud-upload"></ion-icon>
             &nbsp; Certificado
           </ion-button>
           <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button (click)="onClick()">
+            <ion-fab-button (click)="onClickCert()">
               <ion-icon name="cloud-upload"></ion-icon>
             </ion-fab-button>
           </ion-fab>
+          <ion-progress-bar class="foot" color="secondary" [value]= "getProgressCert()" type="determinate"></ion-progress-bar>
         </ion-card-content>
       <input type="file" #fileUpload id="fileUpload"  name="fileUpload" multiple="false" accept="image/*, .pdf" style="display:none;" />
       </ion-card>
@@ -58,19 +74,22 @@
           <h4>Subir Estudios</h4>
         </ion-card-header>
         <ion-card-content>
-          
-            <ion-progress-bar color="secondary" type="indeterminate"></ion-progress-bar>
 
-          <ion-button (click)="onClick()">
-            <ion-icon name="cloud-upload"></ion-icon>
-            &nbsp;Estudios
-          </ion-button>
+              <ion-button disabled="true" (click)="onClickEst()">
+                <ion-icon name="cloud-upload"></ion-icon>
+                &nbsp;Estudios
+              </ion-button>
+
           <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button (click)="onClick()">
+            <ion-fab-button disabled="true" (click)="onClickEst()">
               <ion-icon name="cloud-upload"></ion-icon>
             </ion-fab-button>
           </ion-fab>
+          <ion-progress-bar value="0" color="secondary" type="determinate"></ion-progress-bar>
         </ion-card-content>
+
+
       </ion-card>
+      
   </div>
 </ion-content>
